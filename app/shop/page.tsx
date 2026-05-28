@@ -18,13 +18,18 @@ export default async function ShopPage() {
 
       <div className="shop-grid">
   {artworks.map((art: any) => {
+    const imageUrl = art.image?.asset?.url
     const msg = encodeURIComponent(
-      'Hi! I am interested in ' +
-        art.name +
-        ' priced at Rs.' +
-        art.price +
-        '. Please share details.'
-    )
+  `Hi! 👋
+
+I'm interested in purchasing this beautiful ${art.name} painting.
+
+📏 Size: ${art.size}
+💰 Price: Rs. ${art.price}
+🖼 ${imageUrl}
+
+I really loved this artwork and would like to know if it is available for purchase. Please share the details regarding delivery and payment.`
+)
 
     return (
       <div className="shop-card" key={art._id}>
