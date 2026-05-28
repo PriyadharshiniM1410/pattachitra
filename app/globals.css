@@ -527,7 +527,101 @@ background:#fff;
 
   -webkit-box-orient: vertical;
 }
+/* ART DETAIL PAGE */
+.art-detail {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
 
+.art-detail-back {
+  margin-bottom: 2rem;
+}
+
+.art-detail-back a {
+  text-decoration: none;
+  color: #888;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+.art-detail-back a:hover {
+  color: #000;
+}
+
+.art-detail-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.art-detail-img {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.art-detail-info h1 {
+  font-size: 1.8rem;
+  margin: 0.5rem 0;
+  letter-spacing: 0.05em;
+}
+
+.art-detail-price {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1rem 0;
+  color: #b5451b;
+}
+
+.art-detail-meta {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0.4rem 0;
+}
+
+.art-detail-description {
+  margin: 1.5rem 0;
+  line-height: 1.8;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.whatsapp-btn {
+  background: #25D366;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.whatsapp-btn:hover {
+  background: #1ebe5d;
+}
+
+.art-sold-badge {
+  background: #888;
+  color: white;
+  padding: 1rem 2rem;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  margin-top: 1rem;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .art-detail-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
 
 /* =========================
    RESPONSIVE
