@@ -8,7 +8,8 @@ export const ARTWORKS_QUERY = defineQuery(`
     size,
     category,
     description,
-    image
+    image,
+    slug
   }
 `)
 

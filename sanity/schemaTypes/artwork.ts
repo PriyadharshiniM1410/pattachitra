@@ -9,6 +9,15 @@ export const artwork = {
       type: 'string',
     },
     {
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'name',
+        maxLength: 96,
+      },
+    },
+    {
       name: 'price',
       title: 'Price (₹)',
       type: 'number',
@@ -36,6 +45,12 @@ export const artwork = {
       title: 'Painting Image',
       type: 'image',
       options: { hotspot: true },
+    },
+    {
+      name: 'available',
+      title: 'Available for Sale',
+      type: 'boolean',
+      initialValue: true,
     },
   ],
 }
