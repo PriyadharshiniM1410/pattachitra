@@ -37,7 +37,7 @@ export default async function Home() {
 
         <div className="artist-img">
           <Image
-            src="/images/art&artist.jpg"
+            src="/images/artist.jpg"
             alt="Pattachitra Artist"
             width={500}
             height={400}
