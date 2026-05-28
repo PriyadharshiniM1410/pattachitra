@@ -527,102 +527,172 @@ background:#fff;
 
   -webkit-box-orient: vertical;
 }
-/* ART DETAIL PAGE */
 .art-detail {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 2rem;
+  padding: 40px 8%;
+  background: #fafafa;
 }
 
-.art-detail-back {
-  margin-bottom: 2rem;
-}
-
+/* BACK */
 .art-detail-back a {
   text-decoration: none;
-  color: #888;
-  font-size: 0.9rem;
-  letter-spacing: 0.05em;
+  color: #333;
+  font-weight: 500;
 }
 
-.art-detail-back a:hover {
-  color: #000;
-}
-
-.art-detail-container {
+/* LAYOUT */
+.enhanced-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: start;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 50px;
+  margin-top: 30px;
 }
 
-.art-detail-img {
-  width: 100%;
-  border-radius: 4px;
+/* IMAGE */
+.glass-frame {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  cursor: zoom-in;
 }
 
-.art-detail-info h1 {
-  font-size: 1.8rem;
-  margin: 0.5rem 0;
-  letter-spacing: 0.05em;
+.img-overlay-hint {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 6px;
 }
 
-.art-detail-price {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 1rem 0;
-  color: #b5451b;
+/* CATEGORY */
+.category-pill {
+  display: inline-block;
+  background: #111;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 12px;
 }
 
-.art-detail-meta {
-  font-size: 0.95rem;
-  color: #555;
-  margin: 0.4rem 0;
+/* TITLE */
+.enhanced-title {
+  font-size: 32px;
+  margin: 10px 0;
 }
 
-.art-detail-description {
-  margin: 1.5rem 0;
-  line-height: 1.8;
-  color: #444;
-  font-size: 0.95rem;
+/* PRICE */
+.price-card {
+  background: white;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  margin: 15px 0;
 }
 
-.whatsapp-btn {
+.price-value {
+  font-size: 26px;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+/* INFO CARD */
+.info-card {
+  background: white;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  margin-bottom: 15px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+/* DESCRIPTION */
+.desc-card {
+  background: #fff;
+  padding: 18px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+}
+
+/* CTA */
+.cta-btn {
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.primary {
   background: #25D366;
   color: white;
-  border: none;
-  padding: 1rem 2rem;
-  font-size: 1rem;
-  border-radius: 4px;
-  cursor: pointer;
   width: 100%;
-  margin-top: 1rem;
-  letter-spacing: 0.05em;
 }
 
-.whatsapp-btn:hover {
-  background: #1ebe5d;
+.ghost {
+  background: transparent;
+  border: 1px solid #ddd;
 }
 
-.art-sold-badge {
-  background: #888;
+.share-box {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* RELATED */
+.section-title {
+  font-size: 24px;
+  margin: 40px 0 20px;
+}
+
+.enhanced-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.enhanced-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  height: 260px;
+}
+
+.related-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.4s;
+}
+
+.enhanced-card:hover .related-img {
+  transform: scale(1.05);
+}
+
+.related-overlay {
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
   color: white;
-  padding: 1rem 2rem;
-  text-align: center;
-  border-radius: 4px;
-  font-size: 1rem;
-  letter-spacing: 0.1em;
-  margin-top: 1rem;
-}
-
-/* Mobile */
+  padding: 15px;
+  width: 100%;
+}/* Mobile */
 @media (max-width: 768px) {
-  .art-detail-container {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .related-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .share-buttons {
+    flex-direction: column;
   }
 }
-
 /* =========================
    RESPONSIVE
 ========================= */
