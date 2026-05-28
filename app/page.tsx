@@ -36,16 +36,8 @@ export default async function Home() {
         </div>
 
         <div className="artist-img">
-          <Image
-            src="/images/artist.jpg"
-            alt="Pattachitra Artist"
-            width={500}
-            height={400}
-            style={{
-              borderRadius: '6px',
-              objectFit: 'cover',
-            }}
-          />
+          
+          <img src="/images/artist.jpg" alt="Artist" style={{width:'550px', borderRadius:'6px', objectFit:'cover'}} />
         </div>
       </section>
 
