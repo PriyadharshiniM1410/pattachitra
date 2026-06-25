@@ -28,7 +28,7 @@ export default function ArtDetailClient({
           <span>›</span>
           <Link href="/gallery" style={link}>Gallery</Link>
           <span>›</span>
-          <span style={{ color: '#111' }}>{art.name}</span>
+          <span style={{ color: '#111' }}>{art.title}</span>
         </nav>
 
         {/* GRID */}
@@ -37,13 +37,13 @@ export default function ArtDetailClient({
           {/* LEFT */}
           <section style={left}>
             
-            {art.category && (
-              <div style={badgeWrap}>
-                <span style={badge}>{art.category}</span>
-              </div>
-            )}
+            {art.category?.title && (
+            <div style={badgeWrap}>
+          <span style={badge}>{art.category.title}</span>
+          </div>
+      )}
 
-            <h1 style={title}>{art.name}</h1>
+            <h1 style={title}>{art.title}</h1>
 
             <div style={divider} />
 
@@ -53,14 +53,15 @@ export default function ArtDetailClient({
             </div>
 
             <div style={card}>
+              <Row label="Artwork ID" value={art.artworkId || '-'} />
               <Row label="Size" value={art.size || '-'} />
-              <Row label="Medium" value={art.medium || '-'} />
-              <Row label="Category" value={art.category || '-'} />
-              <Row
-                label="Availability"
-                value={art.available === false ? 'Sold' : 'Available'}
-                highlight={art.available !== false}
-              />
+              <Row label="Category" value={art.category?.title || '-'} />
+              <Row label="Availability" value={
+                    art.availableForSale === false
+                    ? 'Sold'
+                    : 'Available'
+                    }
+                  highlight={art.availableForSale !== false}/>
             </div>
 
             {art.description && (
@@ -70,7 +71,7 @@ export default function ArtDetailClient({
               </div>
             )}
 
-            {art.available !== false ? (
+            {art.availableForSale !== false ? (
               <a href={whatsappUrl} target="_blank">
                 <button style={cta}>💬 Enquire on WhatsApp</button>
               </a>

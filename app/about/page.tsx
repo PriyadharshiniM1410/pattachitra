@@ -58,7 +58,7 @@ export default function AboutPage() {
         <div className="award-grid">
           {[
             { title: '🏆 National Award 2015', desc: 'Ministry of Textiles, Government of India' },
-            { title: '🎨 State Crafts Award 2012', desc: 'Odisha State Handicrafts Corporation' },
+            { title: '🎨 Odisha State Award for Folk Art Painting 2016', desc: 'Prafulla Dahanukar Art Foundation – Kalanand National Art Contest' },
             { title: '🌍 International Exhibition 2018', desc: 'World Crafts Council, Paris' },
             { title: '📰 Featured in Vogue India 2020', desc: 'Traditional Art & Modern World feature' },
           ].map((a) => (

@@ -1,244 +1,280 @@
+'use client';
+
+import { useState, ChangeEvent, FormEvent } from 'react';
+import { client } from '@/sanity/lib/client';
+
+const WA_MESSAGE = encodeURIComponent(
+  'Vanakkam! I would like to inquire about your Pattachitra paintings.'
+);
+const WA_LINK = `https://wa.me/916374781871?text=${WA_MESSAGE}`;
+
+const COMMISSION_STEPS = [
+  'Initialize discussion detailing your preferred narrative theme & scale sizes via form or WhatsApp.',
+  'Receive pricing metrics, raw materials assessment, and visual concept alignment.',
+  'Production execution tracking with ongoing composition milestones.',
+  'Secure packaging and global architectural shipping setup.',
+];
+
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
+  subject: string;
+  message: string;
+}
+
+const EMPTY_FORM: FormData = {
+  name: '',
+  email: '',
+  phone: '',
+  subject: '',
+  message: '',
+};
+
 export default function ContactPage() {
-  const waLink =
-    'https://wa.me/916374781871?text=' +
-    encodeURIComponent(
-      'Vanakkam! I would like to inquire about your Pattachitra paintings.'
-    )
+  const [formData, setFormData] = useState<FormData>(EMPTY_FORM);
+  const [status, setStatus] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  setIsSubmitting(true);
+  setStatus('Sending your inquiry...');
+
+  try {
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.error);
+    }
+
+    setStatus('Success! Your inquiry has been sent.');
+    setFormData(EMPTY_FORM);
+  } catch (error) {
+    console.error(error);
+
+    setStatus(
+      'Something went wrong. Please try again or reach out via WhatsApp.'
+    );
+  } finally {
+    setIsSubmitting(false);
+  }
+};
   return (
-    <main>
-      {/* HEADER */}
-      <div className="contact-header">
-        <h1>GET IN TOUCH</h1>
+    <main className="page">
+      <div className="inner">
 
-        <p>
-          Interested in a commission, collaboration,
-          or purchasing a painting? I would love to
-          hear from you.
-        </p>
-      </div>
+        {/* ── Header ── */}
+        <header className="header">
+          <span className="eyebrow">Connect with the Artist</span>
+          <h1 className="heading">Get in Touch</h1>
+          <div className="divider" />
+          <p className="subheading">
+            Interested in a private commission, cultural collaboration, or purchasing an
+            original Pattachitra masterpiece? Let&apos;s begin the conversation.
+          </p>
+        </header>
 
-      {/* CONTACT CONTAINER */}
-      <div className="contact-container">
+        {/* ── Two-column layout ── */}
+        <div className="grid">
 
-        {/* LEFT SIDE */}
-        <div className="contact-info">
+          {/* ── Left: Studio info ── */}
+          <div className="leftCol">
 
-          {/* ADDRESS */}
-          <div className="info-box">
-            <div className="icon">📍</div>
+            {/* Studio contact card */}
+            <div className="studioCard">
+              <h2 className="cardTitle">Studio Contact</h2>
 
-            <div>
-              <h3>Studio</h3>
+              <ul className="contactList">
+                <li className="contactItem">
+                  <span className="iconBubble" aria-hidden="true">📍</span>
+                  <div>
+                    <h4 className="contactLabel">Heritage Studio Location</h4>
+                    <p className="contactValue">
+                      Raghurajpur Crafts Village, Puri District, Odisha, India — 752012
+                    </p>
+                  </div>
+                </li>
 
-              <p>
-                Raghurajpur, Puri District
-                <br />
-                Odisha, India — 752027
-              </p>
-            </div>
-          </div>
+                <li className="contactItem">
+                  <span className="iconBubble" aria-hidden="true">✉</span>
+                  <div>
+                    <h4 className="contactLabel">Email Address</h4>
+                    <p className="contactValue">
+                      <a href="mailto:pattachitraa@gmail.com">pattachitraa@gmail.com</a>
+                    </p>
+                  </div>
+                </li>
 
-          {/* EMAIL */}
-          <div className="info-box">
-            <div className="icon">✉</div>
+                <li className="contactItem">
+                  <span className="iconBubble" aria-hidden="true">📞</span>
+                  <div>
+                    <h4 className="contactLabel">Direct Line</h4>
+                    <p className="contactValue">
+                      <a href="tel:+916372633342">+91 6372633342</a>
+                    </p>
+                  </div>
+                </li>
 
-            <div>
-              <h3>Email</h3>
+                <li className="contactItem">
+                  <span className="iconBubble" aria-hidden="true">🕐</span>
+                  <div>
+                    <h4 className="contactLabel">Studio Hours</h4>
+                    <p className="contactValue">
+                      Sunday – Saturday<br />9:00 AM – 9:00 PM IST
+                    </p>
+                  </div>
+                </li>
+              </ul>
 
-              <p>
-                artist@pattachitra.art
-              </p>
-            </div>
-          </div>
-
-          {/* PHONE */}
-          <div className="info-box">
-            <div className="icon">📞</div>
-
-            <div>
-              <h3>Phone</h3>
-
-              <p>
-                +91 98765 43210
-              </p>
-            </div>
-          </div>
-
-          {/* HOURS */}
-          <div className="info-box">
-            <div className="icon">🕐</div>
-
-            <div>
-              <h3>Studio Hours</h3>
-
-              <p>
-                Monday – Saturday
-                <br />
-                9:00 AM – 6:00 PM IST
-              </p>
-            </div>
-          </div>
-
-          {/* WHATSAPP BUTTON */}
-          <a
-            href={waLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'block',
-              textAlign: 'center',
-              padding: '14px',
-              background: '#25D366',
-              color: 'white',
-              textDecoration: 'none',
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '14px',
-              letterSpacing: '2px',
-              borderRadius: '4px',
-              transition: '0.3s',
-            }}
-          >
-            💬 CHAT ON WHATSAPP
-          </a>
-
-        </div>
-
-        {/* RIGHT SIDE */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '30px',
-          }}
-        >
-
-          {/* COMMISSION BOX */}
-          <div
-            style={{
-              background: '#f7f4f1',
-              padding: '40px',
-              borderRadius: '6px',
-            }}
-          >
-            <h3
-              style={{
-                fontFamily: 'Playfair Display, serif',
-                fontSize: '28px',
-                color: '#8b1c1c',
-                marginBottom: '15px',
-              }}
-            >
-              Commission a Custom Piece
-            </h3>
-
-            <p
-              style={{
-                color: '#7a6a5c',
-                lineHeight: '1.8',
-                marginBottom: '15px',
-              }}
-            >
-              Want a personalised Pattachitra painting?
-              I accept commissions for custom themes,
-              sizes, and stories. Each commissioned
-              piece is a unique collaboration between
-              artist and collector.
-            </p>
-
-            <p
-              style={{
-                color: '#7a6a5c',
-                lineHeight: '1.8',
-                marginBottom: '15px',
-              }}
-            >
-              Share your vision — a deity, a story,
-              a memory — and I will bring it to life
-              using traditional Pattachitra techniques
-              and natural colours.
-            </p>
-
-            <p
-              style={{
-                color: '#7a6a5c',
-                lineHeight: '1.8',
-              }}
-            >
-              Commission timeline is typically
-              2–6 weeks depending on size and
-              complexity.
-            </p>
-          </div>
-
-          {/* HOW TO ORDER */}
-          <div
-            style={{
-              border: '1px solid #e5e5e5',
-              padding: '30px',
-              borderRadius: '6px',
-            }}
-          >
-            <h3
-              style={{
-                fontFamily: 'Playfair Display, serif',
-                fontSize: '20px',
-                color: '#333',
-                marginBottom: '20px',
-              }}
-            >
-              How to Order via WhatsApp
-            </h3>
-
-            {[
-              'Click the WhatsApp button above',
-              'Share the painting name or your custom idea',
-              'Discuss size, price, and timeline',
-              'Confirm order and make payment',
-              'Receive your artwork within 2–6 weeks',
-            ].map((step, i) => (
-              <div
-                key={i}
-                style={{
-                  display: 'flex',
-                  gap: '15px',
-                  alignItems: 'flex-start',
-                  marginBottom: '15px',
-                }}
+              <a
+                href={WA_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="waBtn"
               >
-                <div
-                  style={{
-                    minWidth: '28px',
-                    height: '28px',
-                    background: '#8b1c1c',
-                    color: 'white',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '13px',
-                    fontWeight: '600',
-                  }}
-                >
-                  {i + 1}
+                <span aria-hidden="true">💬</span> Instant Order via WhatsApp
+              </a>
+            </div>
+
+            {/* Commission workflow card */}
+            <div className="workflowCard">
+              <h3 className="workflowTitle">Commission Workflow</h3>
+              <p className="workflowIntro">
+                Every custom Pattachitra painting is treated with traditional rigour — handmade
+                canvas structures and authentic mineral stone colour processes. Custom timelines
+                take between 1 to 8 weeks.
+              </p>
+
+              {COMMISSION_STEPS.map((step, i) => (
+                <div key={i} className="workflowStep">
+                  <span className="stepNumber">0{i + 1}.</span>
+                  <p className="stepText">{step}</p>
+                </div>
+              ))}
+            </div>
+
+          </div>
+
+          {/* ── Right: Enquiry form ── */}
+          <div className="formCard">
+            <div className="formHeader">
+              <h3 className="formTitle">Submit Private Enquiry</h3>
+              <p className="formDesc">
+                Fill in your specifications and we&apos;ll get back to you directly.
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="form" noValidate>
+
+              <div className="fieldGrid">
+                <div className="fieldGroup">
+                  <label htmlFor="name" className="label">Name *</label>
+                  <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="input"
+                    autoComplete="name"
+                  />
                 </div>
 
-                <p
-                  style={{
-                    color: '#7a6a5c',
-                    fontSize: '14px',
-                    lineHeight: '1.7',
-                    paddingTop: '4px',
-                  }}
-                >
-                  {step}
-                </p>
+                <div className="fieldGroup">
+                  <label htmlFor="email" className="label">Email *</label>
+                  <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="input"
+                    autoComplete="email"
+                  />
+                </div>
               </div>
-            ))}
+
+              <div className="fieldGrid">
+                <div className="fieldGroup">
+                  <label htmlFor="phone" className="label">Phone Number</label>
+                  <input
+                    id="phone"
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="input"
+                    autoComplete="tel"
+                  />
+                </div>
+
+                <div className="fieldGroup">
+                  <label htmlFor="subject" className="label">Subject / Theme *</label>
+                  <input
+                    id="subject"
+                    type="text"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    className="input"
+                  />
+                </div>
+              </div>
+
+              <div className="fieldGroup">
+                <label htmlFor="message" className="label">
+                  Detailed Concept / Project Scope *
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={5}
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  className="input textarea"
+                  placeholder="Describe dimensions, desired configurations, deities, or historical epics..."
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="submitBtn"
+              >
+                {isSubmitting ? 'Sending…' : 'Send Enquiry'}
+              </button>
+
+              {status && (
+                <div
+                  role="alert"
+                  className={status.includes('Success') ? 'statusSuccess' : 'statusError'}
+                >
+                  {status}
+                </div>
+              )}
+            </form>
           </div>
 
         </div>
       </div>
     </main>
-  )
-}      
+  );
+}

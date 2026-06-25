@@ -5,17 +5,17 @@ import Link from 'next/link'
 import { urlFor } from '../sanity/lib/image'
 
 export default function GalleryClient({
-  artworks,
+  artworks = [],
 }: {
-  artworks: any[]
+  artworks?: any[]
 }) {
+
   const categories = [
     'ALL',
     ...new Set(
       artworks
-        .map((art) => art.category)
+        .map((art) => art.category?.title)
         .filter(Boolean)
-        .map((cat) => cat.toUpperCase())
     ),
   ]
 
@@ -25,9 +25,7 @@ export default function GalleryClient({
     selected === 'ALL'
       ? artworks
       : artworks.filter(
-          (art) =>
-            art.category &&
-            art.category.toUpperCase() === selected
+          (art) => art.category?.title === selected
         )
 
   return (
@@ -47,9 +45,7 @@ export default function GalleryClient({
         {categories.map((cat) => (
           <button
             key={cat}
-            className={
-              selected === cat ? 'active' : ''
-            }
+            className={selected === cat ? 'active' : ''}
             onClick={() => setSelected(cat)}
           >
             {cat}
@@ -63,23 +59,38 @@ export default function GalleryClient({
           <Link
             href={`/art/${art.slug?.current}`}
             key={art._id}
-            style={{ textDecoration: 'none', color: 'inherit' }}
+            style={{
+              textDecoration: 'none',
+              color: 'inherit',
+            }}
           >
             <div className="gallery-card">
               {art.image && (
                 <div className="gallery-image-wrapper">
                   <img
                     src={urlFor(art.image).width(800).url()}
-                    alt={art.name}
+                    alt={art.image?.alt || art.title}
                     className="gallery-img"
                   />
                 </div>
               )}
+
               <div className="gallery-content">
-                {art.category && (
-                  <span className="gallery-tag">{art.category}</span>
+
+                {art.category?.title && (
+                  <span className="gallery-tag">
+                    {art.category.title}
+                  </span>
                 )}
-                <h3>{art.name}</h3>
+
+                {art.artworkId && (
+                  <span className="gallery-id">
+                    {art.artworkId}
+                  </span>
+                )}
+
+                <h3>{art.title}</h3>
+
                 {art.description && (
                   <p>
                     {art.description.length > 500
